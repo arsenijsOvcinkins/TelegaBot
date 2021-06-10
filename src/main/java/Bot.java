@@ -12,11 +12,13 @@ import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Random;
 
 //import java.awt.*;
 //import java.io.FileNotFoundException;
-//import java.io.FileReader;
+import java.io.FileReader;
 //import java.io.IOException;
 
 import java.util.*;
@@ -195,11 +197,11 @@ public class Bot extends TelegramLongPollingBot {
             SendMessage s = new SendMessage();
             s.setChatId("462071152");
             s.setText(tStr +" "+ name);
-            try{
-                sendMessage(s);
-            } catch (TelegramApiException m){
-                m.printStackTrace();
-            }
+            System.out.println(tStr + " @" +name);
+            String thanks = "Спасибо за Ваш отзыв!";
+
+            SendMsg(msg, thanks);
+
         }
         String lecture1 = "\n>>>>>>>>>>>>>Juniors<<<<<<<<<<<<<<\n" +
                 "15:00 – 16:20. \nРябова М.О. \nСмайлики из атомов.\n" +
@@ -228,55 +230,14 @@ public class Bot extends TelegramLongPollingBot {
             SendMsg(msg, game);
         }
 
-        String team = "\nОти\n" +
-                "\nКлепиков Никита\n" +
-                "Лукашанец Лаура\n" +
-                "Третьякова Вероника (K)\n" +
-                "Эш Артемий\n" +
-                "Юкна Анна\n" +
-                "\nКык\n" +
-                "\nГриценко Андрей\n" +
-                "Лезина Марина\n" +
-                "Осина Майя\n" +
-                "Табунов Алексей\n" +
-                "Черемухина Дарья (K)\n" +
-                "\nКуим\n" +
-                "\nБразовская Виктория\n" +
-                "Громова Варвара\n" +
-                "Матвеев Юрий (K)\n" +
-                "Панфилович Иван\n" +
-                "Савченко Дарья\n" +
-                "\nНёль\n" +
-                "\nВейде Рене\n" +
-                "Дубровский Станислав\n" +
-                "Матросов Александр (K)\n" +
-                "Фомичева Ольга\n" +
-                "Эль Рекаби Рехаф\n" +
-                "\nВит\n" +
-                "\nДомбровский Владислав (K)\n" +
-                "Драч Валерия\n" +
-                "Мартынюк Александра\n" +
-                "Петрова Вероника\n" +
-                "Ринкевич Стефан\n" +
-                "\nКвайт\n" +
-                "\nБразовская София\n" +
-                "Волохов Игорь\n" +
-                "Гужева Мария\n" +
-                "Завьялова Глафира\n" +
-                "Овчинкин Арсений (K)\n" +
-                "\nСизим\n" +
-                "\nЕфимова Арина\n" +
-                "Лиепиньш Борис (K)\n" +
-                "Пестерников Станислав\n" +
-                "Сараева Екатерина\n" +
-                "Тарасова Анна\n" +
-                "\nКокъямыс\n" +
-                "\nБоровкова Анастасия\n" +
-                "Вятер Александр\n" +
-                "Петренко Олег\n" +
-                "Рудиш Кира (K)\n" +
-                "Рябова Мария";
+
         if (txt.startsWith("/team")) {
+            String team = null;
+            try {
+                team = Reader.teams();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
             SendMsg(msg, team);
         }
 
